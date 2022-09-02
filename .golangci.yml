@@ -1,0 +1,38 @@
+run:
+  timeout: 5m
+
+linters:
+  disable-all: true
+  enable:
+    - bodyclose
+    - depguard
+    - dogsled
+    - dupl
+    - exportloopref
+    - gocritic
+    - gocyclo
+    - gofmt
+    - goimports
+    - goprintffuncname
+    - gosimple
+    - govet
+    - ineffassign
+    - misspell
+    - nakedret
+    - nolintlint
+    - revive
+    - staticcheck
+    - stylecheck
+    - typecheck
+    - unconvert
+    - unparam
+    - unused
+    - whitespace
+
+linters-settings:
+  gofmt:
+    simplify: true
+  goimports:
+    local-prefixes: github.com/liuerfire
+  dupl:
+    threshold: 400

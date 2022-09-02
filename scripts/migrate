@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -e
+set -o pipefail
+
+DATABASE_URL="${DATABASE_URL:-mysql://root@tcp(127.0.0.1:3306)/boxpractice}"
+
+cd "$(dirname "${BASH_SOURCE[0]}")/.." || exit 1
+
+if ! command -v migrate > /dev/null; then
+  go install -tags 'mysql' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+fi
+
+exec migrate \
+  -source "file://database/migrations" \
+  -database "${DATABASE_URL}" \
+  "$@"

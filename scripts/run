@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# a simple script for docker-compose
+
+./scripts/migrate up
+./target/boxpractice

@@ -1,0 +1,26 @@
+services:
+  boxpractice:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      DATABASE_URL: "mysql://root@tcp(mysql:3306)/boxpractice"
+    command:
+      ["/app/wait-for-it.sh", "mysql:3306", "--", "/app/scripts/run"]
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_DATABASE: boxpractice
+  openapi:
+    image: swaggerapi/swagger-ui
+    environment:
+      SWAGGER_JSON: /foo/api/openapi.yaml
+    depends_on:
+      - boxpractice
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./docs:/foo
